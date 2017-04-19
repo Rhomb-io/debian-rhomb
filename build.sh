@@ -40,7 +40,7 @@ function print_help () {
 function get_toolchain() {
 	mkdir -p $SRC_DIR
 	cd $SRC_DIR
-	wget https://github.com/Rhomb-io/debian-rhomb/releases/download/1.0.0/exynos_arm_toolchain.tgz
+	wget https://github.com/Rhomb-io/common-packages-rhomb/releases/download/1.0.0/exynos_arm_toolchain.tgz
 }
 
 function export_toolchain () {
@@ -100,10 +100,10 @@ function uboot_install () {
 	mkdir -p $FILESYSTEM_DIR/etc
 	cp $UBOOT_DIR/u-boot.bin $IMAGES_DIR/
 	cp $UBOOT_DIR/tools/env/fw_env.config $FILESYSTEM_DIR/etc/
-        cp $UBOOTDIR/sd_fuse/bl1.HardKernel $IMAGEDIR/
-        cp $UBOOTDIR/sd_fuse/bl2.HardKernel $IMAGEDIR/
-        cp $UBOOTDIR/sd_fuse/tzsw.HardKernel $IMAGEDIR/
-        cp $UBOOTDIR/sd_fuse/sd_fusing.sh $IMAGEDIR/
+        cp $UBOOT_DIR/sd_fuse/bl1.HardKernel $IMAGES_DIR/
+        cp $UBOOT_DIR/sd_fuse/bl2.HardKernel $IMAGES_DIR/
+        cp $UBOOT_DIR/sd_fuse/tzsw.HardKernel $IMAGES_DIR/
+        cp $UBOOT_DIR/sd_fuse/sd_fusing.sh $IMAGES_DIR/
 }
 
 function uboot_rebuild () {
@@ -141,10 +141,10 @@ function build_debian () {
 function get_debian () {
 	mkdir -p $SRC_DIR
 	cd $SRC_DIR
-	wget https://github.com/Rhomb-io/debian-rhomb/releases/download/1.0.1/debian_base.tgz
-	mkdir -P $DEBIAN_DIR
+	wget https://github.com/Rhomb-io/debian-rhomb/releases/download/1.0.0/debian_base_jessie.tgz
+	mkdir -p $DEBIAN_DIR
 	cd $DEBIAN_DIR
-	sudo tar -zxvf $SRC_DIR/debian_base.tgz
+	sudo tar -zxvf $SRC_DIR/debian_base_jessie.tgz
 	sync
 }
 

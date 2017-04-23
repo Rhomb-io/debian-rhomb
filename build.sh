@@ -1,16 +1,8 @@
 #!/bin/bash
 # This is generic build script we generated for our use case.
+. setup_env
+
 arg="$1"
-ROOT_DIR=$PWD
-SRC_DIR=$ROOT_DIR/dl
-OUT_DIR=$ROOT_DIR/output
-BUILD_DIR=$OUT_DIR/build
-TOOLCHAIN_DIR=$ROOT_DIR/output/build/toolchain
-UBOOT_DIR=$ROOT_DIR/output/build/uboot-odroid-v2015.10
-KERNEL_DIR=$ROOT_DIR/output/build/linux-odroid-4.8.y
-IMAGES_DIR=$ROOT_DIR/output/images
-DEBIAN_DIR=$ROOT_DIR/output/build/debian
-FILESYSTEM_DIR=$ROOT_DIR/filesystem
 
 function print_help () {
 	echo "####################################################"
@@ -38,8 +30,8 @@ function print_help () {
 }
 
 function get_toolchain() {
-	mkdir -p $SRC_DIR
-	cd $SRC_DIR
+	mkdir -p $DOWNLOAD_DIR
+	cd $DOWNLOAD_DIR
 	wget https://github.com/Rhomb-io/common-packages-rhomb/releases/download/1.0.0/exynos_arm_toolchain.tgz
 }
 
@@ -51,7 +43,7 @@ function export_toolchain () {
 		get_toolchain
 		mkdir -p $TOOLCHAIN_DIR
 		cd $TOOLCHAIN_DIR
-		tar -zxvf $SRC_DIR/exynos_arm_toolchain.tgz
+		tar -zxvf $DOWNLOAD_DIR/exynos_arm_toolchain.tgz
 		export PATH=$PATH:/$TOOLCHAIN_DIR
 		cd $ROOT_DIR
 	fi
@@ -139,12 +131,12 @@ function build_debian () {
 }
 
 function get_debian () {
-	mkdir -p $SRC_DIR
-	cd $SRC_DIR
+	mkdir -p $DOWNLOAD_DIR
+	cd $DOWNLOAD_DIR
 	wget https://github.com/Rhomb-io/debian-rhomb/releases/download/1.0.0/debian_base_jessie.tgz
 	mkdir -p $DEBIAN_DIR
 	cd $DEBIAN_DIR
-	sudo tar -zxvf $SRC_DIR/debian_base_jessie.tgz
+	sudo tar -zxvf $DOWNLOAD_DIR/debian_base_jessie.tgz
 	sync
 }
 

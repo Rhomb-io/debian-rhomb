@@ -1,0 +1,84 @@
+------------------------------
+Ubuntu setup for rhomb devices
+------------------------------
+This is pakcage to build and install debian filesystem on rhomb devices.
+-------------
+Prerequisites
+-------------
+For debian installation use SD card having atleast 8GB capacity.
+To use debian pakcage machine should have atleast 10GB free space available.
+
+Please delete all the partitions in SD card before using it for flashing.
+------------------
+Build Instructions
+------------------
+1) Run below command
+   # sudo ./build.sh all
+   This command will take little long for the first time run as it downloads
+   all the packages and then compile. It will generated zImage (dtb appended )
+   and debian.tgz in "<ubuntu-rhomb>/output/images/".
+
+   If user is using this package first time it is mandatory to run
+   "sudo ./build.sh all" command.
+
+2) To rebuild linux kernel.
+   # sudo ./build.sh linux
+   This command rebuild linux kernel with latest chagnes and install kernel
+   image (zImage with dtb appended) in "<buidroot_rhomb>/output/images/".
+
+3) To rebuild u-boot
+   # sudo ./build.sh uboot
+   This command rebuild uboot with latest chagnes and install uboot image
+    in "<buidroot_rhomb>/output/images/".
+
+4) To build debian filesystem.
+   # sudo ./build.sh debian
+
+5) To get help of the 'build.sh' script
+   # sudo ./build.sh help
+
+--------------------
+Install instructions
+--------------------
+1) There is one more script 'prepare_sd.sh'. This scripts flashes all the required
+   binaries to boot from SD card having debian filesystem.
+   run 'prepare_sd.sh' script:
+   # sudo ./prepare_sd.sh <SD Reader's device file>
+   example <SD Reader's device file> : sdb, mmcblk0, sdd, sdc etc
+   Once SD card is prepared user need to set board for SD bootmode.
+   Insert prepared SD card and power on board.
+
+2) For EMMC flashing user need to first follow build instructions and boot
+   from SD card as instructed in above step 1 of install instructions. Once
+   board is booted from SD card user need to login. "odroid login: " prompt
+   by entering
+   user name : odroid
+   password  : odroid
+
+3) After that apply below commands.
+   # cd /opt/
+   # sudo tar -xzvf images.tgz --warning=no-timestamp
+   # cd images
+   # sudo ./emmc_fusing.sh mmcblk1
+        (This script will ask user if "/dev/mmcblk1p1" already formated with
+	ext4 filesystem as below)
+
+        /dev/mmcblk1p1 contains a ext4 file system
+                last mounted on / on Thu Jan  1 00:00:02 1970
+        Proceed anyway? (y,N)
+        Enter 'y' if it asked first time.
+        For next time onwards user can enter 'N'
+4) At the end of above command below messages will be printed
+        eMMC flashed
+        Power off the board
+        Set emmc boot mode boot board
+        Good luck!
+5) User need to set board in EMMC bootmode to boot board from EMMC.
+6) Once user set board in EMMC bootmode and power on board board will boot from eMMC
+
+NOTE: In case of booting from eMMC we have seen that sometimes it failed to display GUI
+on HDMI screen. In that case login into board and apply below commands. This is one time
+command you won't face issue after that.
+
+# sudo dpkg-reconfigure lightdm
+# sudo /etc/init.d/lightdm restart

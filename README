@@ -16,7 +16,7 @@ Build Instructions
    # sudo ./build.sh all
    This command will take little long for the first time run as it downloads
    all the packages and then compile. It will generated zImage (dtb appended )
-   and debian.tgz in "<ubuntu-rhomb>/output/images/".
+   and debian.tgz in "<debian-rhomb>/output/images/".
 
    If user is using this package first time it is mandatory to run
    "sudo ./build.sh all" command.

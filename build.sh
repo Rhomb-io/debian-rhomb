@@ -30,9 +30,12 @@ function print_help () {
 }
 
 function get_toolchain() {
-	mkdir -p $DOWNLOAD_DIR
-	cd $DOWNLOAD_DIR
-	wget https://github.com/Rhomb-io/common-packages-rhomb/releases/download/1.0.0/exynos_arm_toolchain.tgz
+	if [ ! -d $DOWNLOAD_DIR ]
+	then
+		mkdir -p $DOWNLOAD_DIR
+		cd $DOWNLOAD_DIR
+		wget https://github.com/Rhomb-io/common-packages-rhomb/releases/download/1.0.0/exynos_arm_toolchain.tgz
+	fi
 }
 
 function export_toolchain () {
@@ -131,12 +134,15 @@ function build_debian () {
 }
 
 function get_debian () {
-	mkdir -p $DOWNLOAD_DIR
-	cd $DOWNLOAD_DIR
-	wget https://github.com/Rhomb-io/debian-rhomb/releases/download/1.0.0/debian_base_jessie.tgz
+	if [ ! -d $DOWNLOAD_DIR ]
+	then
+		mkdir -p $DOWNLOAD_DIR
+		cd $DOWNLOAD_DIR
+		wget https://github.com/Rhomb-io/debian-rhomb/releases/download/1.0.1/debian_rhomb_base.tgz
+	fi
 	mkdir -p $DEBIAN_DIR
 	cd $DEBIAN_DIR
-	sudo tar -zxvf $DOWNLOAD_DIR/debian_base_jessie.tgz
+	sudo tar -zxvf $DOWNLOAD_DIR/debian_rhomb_base.tgz
 	sync
 }
 

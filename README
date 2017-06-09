@@ -50,10 +50,10 @@ Install instructions
 
 2) For EMMC flashing user need to first follow build instructions and boot
    from SD card as instructed in above step 1 of install instructions. Once
-   board is booted from SD card user need to login. "odroid login: " prompt
+   board is booted from SD card user need to login. "rhomb login: " prompt
    by entering
-   user name : odroid
-   password  : odroid
+   user name : rhomb
+   password  : rhomb
 
 3) After that apply below commands.
    # cd /opt/

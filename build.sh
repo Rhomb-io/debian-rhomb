@@ -35,6 +35,13 @@ function get_toolchain() {
 		mkdir -p $DOWNLOAD_DIR
 		cd $DOWNLOAD_DIR
 		wget https://github.com/Rhomb-io/common-packages-rhomb/releases/download/1.0.0/exynos_arm_toolchain.tgz
+	elif [ -d $DOWNLOAD_DIR ]
+	then
+		if [ ! -f $DOWNLOAD_DIR/exynos_arm_toolchain.tgz ]
+		then
+			cd $DOWNLOAD_DIR
+			wget https://github.com/Rhomb-io/common-packages-rhomb/releases/download/1.0.0/exynos_arm_toolchain.tgz
+		fi
 	fi
 }
 
@@ -139,6 +146,14 @@ function get_debian () {
 		mkdir -p $DOWNLOAD_DIR
 		cd $DOWNLOAD_DIR
 		wget https://github.com/Rhomb-io/debian-rhomb/releases/download/1.0.1/debian_rhomb_base.tgz
+        elif [ -d $DOWNLOAD_DIR ]
+        then
+                if [ ! -f $DOWNLOAD_DIR/debian_rhomb_base.tgz ]
+                then
+                        cd $DOWNLOAD_DIR
+                        wget https://github.com/Rhomb-io/debian-rhomb/releases/download/1.0.1/debian_rhomb_base.tgz
+                fi
+
 	fi
 	mkdir -p $DEBIAN_DIR
 	cd $DEBIAN_DIR
